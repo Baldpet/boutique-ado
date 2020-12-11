@@ -21,7 +21,7 @@ def cache_checkout_data(request):
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
             'username': request.user,
-            'save_info': request.POST.get('save_info'),
+            'save_info': request.POST.get('save-info'),
             'bag': json.dumps(request.session.get('bag', {})),
         })
         return HttpResponse(status=200)
@@ -112,7 +112,7 @@ def checkout(request):
             order_form = OrderForm(initial={
                 'full_name': profile.user.get_full_name(),
                 'email': profile.user.email,
-                'default_phone_number': profile.default_phone_number,
+                'phone_number': profile.default_phone_number,
                 'country': profile.default_country,
                 'postcode': profile.default_postcode,
                 'town_or_city': profile.default_town_or_city,
